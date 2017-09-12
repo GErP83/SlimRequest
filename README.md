@@ -3,7 +3,7 @@
 SlimRequest is tiny library for android network handling. Not use any 3rd party library, it has zero dependencies, has no other layers, not working of top of some other library. Only the top of HttpURLConnection. It has a 28 kB size and has 160 methods only.
 
 ## What it can do
-- can call basic HTTP/HTTPS request: GET, POST, DELETE, PUT, PATCH
+- can call basic HTTP/HTTPS request: GET, POST, PUT, PATCH, DELETE
 - can check internet availability, returns NETWORK error, you don't need to check it yourself
 - you don't have to worry about main thread using
 - can set content type like "application/json; charset=utf-8"
@@ -36,7 +36,6 @@ SlimRequest is tiny library for android network handling. Not use any 3rd party 
   
   ## Requirements:
   Android api 2.3+ and permissions:
-  
   ```
   <uses-permission android:name="android.permission.INTERNET" />
   <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /
@@ -44,6 +43,40 @@ SlimRequest is tiny library for android network handling. Not use any 3rd party 
   ```
   
   ## Examples
+  GET
+  ```
+  SlimRequest.get("http://someapiurl.com").run(this, new SlimRequestCallback() {
+      @Override
+      public void onSuccess(SlimResult result) {
+
+      }
+
+      @Override
+      public void onFail(SlimResult result) {
+
+      }
+  });
+  ```
+
+  POST
+  ```
+  SlimRequest.post("http://someapiurl.com").addParam("someParam", "someValue").run(this, new SlimRequestCallback() {
+      @Override
+      public void onSuccess(SlimResult result) {
+
+      }
+
+      @Override
+      public void onFail(SlimResult result) {
+
+      }
+  });
+  ```
+  PUT
+  
+  PATCH
+  
+  DELETE
   
   ### Simple
   ...
