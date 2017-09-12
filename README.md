@@ -48,12 +48,12 @@ SlimRequest is tiny library for android network handling. Not use any 3rd party 
   SlimRequest.get("http://someapiurl.com").run(this, new SlimRequestCallback() {
       @Override
       public void onSuccess(SlimResult result) {
-
+          //do something with result
       }
 
       @Override
       public void onFail(SlimResult result) {
-
+          //do something with error
       }
   });
   ```
@@ -63,12 +63,12 @@ SlimRequest is tiny library for android network handling. Not use any 3rd party 
   SlimRequest.post("http://someapiurl.com").addParam("someParam", "someValue").run(this, new SlimRequestCallback() {
       @Override
       public void onSuccess(SlimResult result) {
-
+          //do something with result
       }
 
       @Override
       public void onFail(SlimResult result) {
-
+          //do something with error
       }
   });
   ```
