@@ -45,13 +45,13 @@ SlimRequest is tiny library for android network handling. Not use any 3rd party 
   
   ## Examples
   
-  ## Simple
+  ### Simple
   ...
   
-  ## Stack
+  ### Stack
   ...
   
-  ## Chain
+  ### Chain
   ...
   
   ## Lisence: WTFPL
