@@ -34,3 +34,8 @@ SlimRequest is tiny library for android network handling. Not use any 3rd party 
   - bytes uploaded
   - bytes downloaded
   - skipped (will explain with stacks)
+  
+  
+  ### Lisence: WTFPL
+  
+  
