@@ -35,12 +35,13 @@ SlimRequest is tiny library for android network handling. Not use any 3rd party 
   - skipped (will explain with stacks)
   
 ## Requirements:
-  Android api 2.3+ and permissions:
-  ```
-  <uses-permission android:name="android.permission.INTERNET" />
-  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /
-  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-  ```
+Android api 2.3+ and permissions:
+```
+<uses-permission android:name="android.permission.INTERNET" />
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+```
+MavenCentral() on the way.
   
 ## Examples
 Get request
