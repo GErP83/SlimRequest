@@ -43,7 +43,7 @@ SlimRequest is tiny library for android network handling. Not use any 3rd party 
   ```
   
   ## Examples
-  GET
+  Get request
   ```
   SlimRequest.get("http://someapiurl.com").run(this, new SlimRequestCallback() {
       @Override
@@ -57,7 +57,7 @@ SlimRequest is tiny library for android network handling. Not use any 3rd party 
       }
   });
   ```
-  POST
+  Post request
   ```
   SlimRequest.post("http://someapiurl.com").addParam("someParam", "someValue").run(this, new SlimRequestCallback() {
       @Override
@@ -71,7 +71,7 @@ SlimRequest is tiny library for android network handling. Not use any 3rd party 
       }
   });
   ```
-  PUT
+  Put request
   ```
   SlimRequest.put("http://someapiurl.com").addParam("someParam", "someValue").run(this, new SlimRequestCallback() {
       @Override
@@ -85,7 +85,7 @@ SlimRequest is tiny library for android network handling. Not use any 3rd party 
       }
   });
   ```
-  PATCH
+  Patch request
   ```
   SlimRequest.patch("http://someapiurl.com").addParam("someParam", "someValue").run(this, new SlimRequestCallback() {
       @Override
@@ -99,7 +99,7 @@ SlimRequest is tiny library for android network handling. Not use any 3rd party 
       }
   });
   ```
-  DELETE
+  Delete request
   ```
   SlimRequest.delete("http://someapiurl.com").run(this, new SlimRequestCallback() {
       @Override
@@ -157,9 +157,61 @@ SlimRequest is tiny library for android network handling. Not use any 3rd party 
       }
   );
   ```
-  
-  ### Simple
-  ...
+  Request with every options
+  ```
+  SlimRequest.post("http://someapiurl.com")
+          .addParam("someParam", "someValue")
+          .addHeader("someParam", "someValue")
+          .setBasicAuthentication("username", "password")
+          .setChunkSize(4096)
+          .setConnectionTimeOut(30000)
+          .setReadTimeOut(10000)
+          .setReturnType(SlimReturnType.JSON_OBJECT)
+          .trustAllHttps()
+          .setContentType(SlimConstants.CONTENT_TYPE_JSON)
+          .run(this, new SlimRequestCallback() {
+              @Override
+              public void onSuccess(SlimResult result) {
+                  //do something with result
+              }
+
+              @Override
+              public void onFail(SlimResult result) {
+                  //do something with error
+              }
+  });
+  ```
+  Session handling
+  ```
+  SlimRequest.get("http://someapiurl.com").run(this,
+          new SlimRequestCallback() {
+              @Override
+              public void onSuccess(SlimResult result) {
+                  //get session from headers
+                  Object sessionValue = result.getHeaders().get("sessionKey");
+                  SlimRequest.saveSession(context, "sessionKey", sessionValue);
+
+              }
+
+              @Override
+              public void onFail(SlimResult result) {
+                  //do something with error
+              }
+          });
+
+  SlimRequest.post("http://someapiurl.com").addSession(this).run(this,
+          new SlimRequestCallback() {
+              @Override
+              public void onSuccess(SlimResult result) {
+                  //do something with result
+              }
+
+              @Override
+              public void onFail(SlimResult result) {
+                  //do something with error
+              }
+          });
+  ```
   
   ### Stack
   ...
