@@ -222,5 +222,4 @@ SlimRequest is tiny library for android network handling. Not use any 3rd party 
   ...
   
   ## Lisence
-  WTFPL
-  
+  [wtfpl](http://www.wtfpl.net/)
