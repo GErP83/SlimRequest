@@ -34,7 +34,7 @@ SlimRequest is tiny library for android network handling. Not use any 3rd party 
   - bytes downloaded
   - skipped (will explain with stacks)
   
-  ## Requirements:
+## Requirements:
   Android api 2.3+ and permissions:
   ```
   <uses-permission android:name="android.permission.INTERNET" />
@@ -42,184 +42,185 @@ SlimRequest is tiny library for android network handling. Not use any 3rd party 
   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
   ```
   
-  ## Examples
-  Get request
-  ```
-  SlimRequest.get("http://someapiurl.com").run(this, new SlimRequestCallback() {
-      @Override
-      public void onSuccess(SlimResult result) {
-          //do something with result
-      }
+## Examples
+Get request
+```
+SlimRequest.get("http://someapiurl.com").run(this, new SlimRequestCallback() {
+    @Override
+    public void onSuccess(SlimResult result) {
+        //do something with result
+    }
 
-      @Override
-      public void onFail(SlimResult result) {
-          //do something with error
-      }
-  });
-  ```
-  Post request
-  ```
-  SlimRequest.post("http://someapiurl.com").addParam("someParam", "someValue").run(this, new SlimRequestCallback() {
-      @Override
-      public void onSuccess(SlimResult result) {
-          //do something with result
-      }
+    @Override
+    public void onFail(SlimResult result) {
+        //do something with error
+    }
+});
+```
+Post request
+```
+SlimRequest.post("http://someapiurl.com").addParam("someParam", "someValue").run(this, new SlimRequestCallback() {
+    @Override
+    public void onSuccess(SlimResult result) {
+        //do something with result
+    }
 
-      @Override
-      public void onFail(SlimResult result) {
-          //do something with error
-      }
-  });
-  ```
-  Put request
-  ```
-  SlimRequest.put("http://someapiurl.com").addParam("someParam", "someValue").run(this, new SlimRequestCallback() {
-      @Override
-      public void onSuccess(SlimResult result) {
-          //do something with result
-      }
+    @Override
+    public void onFail(SlimResult result) {
+        //do something with error
+    }
+});
+```
+Put request
+```
+SlimRequest.put("http://someapiurl.com").addParam("someParam", "someValue").run(this, new SlimRequestCallback() {
+    @Override
+    public void onSuccess(SlimResult result) {
+        //do something with result
+    }
 
-      @Override
-      public void onFail(SlimResult result) {
-          //do something with error
-      }
-  });
-  ```
-  Patch request
-  ```
-  SlimRequest.patch("http://someapiurl.com").addParam("someParam", "someValue").run(this, new SlimRequestCallback() {
-      @Override
-      public void onSuccess(SlimResult result) {
-          //do something with result
-      }
+    @Override
+    public void onFail(SlimResult result) {
+        //do something with error
+    }
+});
+```
+Patch request
+```
+SlimRequest.patch("http://someapiurl.com").addParam("someParam", "someValue").run(this, new SlimRequestCallback() {
+    @Override
+    public void onSuccess(SlimResult result) {
+        //do something with result
+    }
 
-      @Override
-      public void onFail(SlimResult result) {
-          //do something with error
-      }
-  });
-  ```
-  Delete request
-  ```
-  SlimRequest.delete("http://someapiurl.com").run(this, new SlimRequestCallback() {
-      @Override
-      public void onSuccess(SlimResult result) {
-          //do something with result
-      }
+    @Override
+    public void onFail(SlimResult result) {
+        //do something with error
+    }
+});
+```
+Delete request
+```
+SlimRequest.delete("http://someapiurl.com").run(this, new SlimRequestCallback() {
+    @Override
+    public void onSuccess(SlimResult result) {
+        //do something with result
+    }
 
-      @Override
-      public void onFail(SlimResult result) {
-          //do something with error
-      }
-  });
-  ```
-  Download and progress
-  ```
-  SlimRequest.get("http://someapiurl.com").downloadToFile(new File("file to path")).run(this,
-      new SlimProgressCallback() {
-          @Override
-          public void onProgress(int chuckBytes, int totalBytes) {
-              //do something with progress
-          }
-      },
-      new SlimRequestCallback() {
-          @Override
-          public void onSuccess(SlimResult result) {
-              //do something with result
-          }
+    @Override
+    public void onFail(SlimResult result) {
+        //do something with error
+    }
+});
+```
+Download and progress
+```
+SlimRequest.get("http://someapiurl.com").downloadToFile(new File("file to path")).run(this,
+    new SlimProgressCallback() {
+        @Override
+        public void onProgress(int chuckBytes, int totalBytes) {
+            //do something with progress
+        }
+    },
+    new SlimRequestCallback() {
+        @Override
+        public void onSuccess(SlimResult result) {
+            //do something with result
+        }
 
-          @Override
-          public void onFail(SlimResult result) {
-              //do something with error
-          }
-      }
-  );
-  ```
-  Upload and progress
-  ```
-  SlimRequest.post("http://someapiurl.com").setUploadFile(new SlimFile("name", new File("file to path"))).run(this,
-      new SlimProgressCallback() {
-          @Override
-          public void onProgress(int chuckBytes, int totalBytes) {
-              //do something with progress
-          }
-      },
-      new SlimRequestCallback() {
-          @Override
-          public void onSuccess(SlimResult result) {
-              //do something with result
-          }
+        @Override
+        public void onFail(SlimResult result) {
+            //do something with error
+        }
+    }
+);
+```
+Upload and progress
+```
+SlimRequest.post("http://someapiurl.com").setUploadFile(new SlimFile("name", new File("file to path"))).run(this,
+    new SlimProgressCallback() {
+        @Override
+        public void onProgress(int chuckBytes, int totalBytes) {
+            //do something with progress
+        }
+    },
+    new SlimRequestCallback() {
+        @Override
+        public void onSuccess(SlimResult result) {
+            //do something with result
+        }
 
-          @Override
-          public void onFail(SlimResult result) {
-              //do something with error
-          }
-      }
-  );
-  ```
-  Request with every options
-  ```
-  SlimRequest.post("http://someapiurl.com")
-          .addParam("someParam", "someValue")
-          .addHeader("someParam", "someValue")
-          .setBasicAuthentication("username", "password")
-          .setChunkSize(4096)
-          .setConnectionTimeOut(30000)
-          .setReadTimeOut(10000)
-          .setReturnType(SlimReturnType.JSON_OBJECT)
-          .trustAllHttps()
-          .setContentType(SlimConstants.CONTENT_TYPE_JSON)
-          .run(this, new SlimRequestCallback() {
-              @Override
-              public void onSuccess(SlimResult result) {
-                  //do something with result
-              }
+        @Override
+        public void onFail(SlimResult result) {
+            //do something with error
+        }
+    }
+);
+```
+Request with every options
+```
+SlimRequest.post("http://someapiurl.com")
+    .addParam("someParam", "someValue")
+    .addHeader("someParam", "someValue")
+    .setBasicAuthentication("username", "password")
+    .setChunkSize(4096)
+    .setConnectionTimeOut(30000)
+    .setReadTimeOut(10000)
+    .setReturnType(SlimReturnType.JSON_OBJECT)
+    .trustAllHttps()
+    .setContentType(SlimConstants.CONTENT_TYPE_JSON)
+    .run(this, new SlimRequestCallback() {
+        @Override
+        public void onSuccess(SlimResult result) {
+            //do something with result
+        }
 
-              @Override
-              public void onFail(SlimResult result) {
-                  //do something with error
-              }
-  });
-  ```
-  Session handling
-  ```
-  SlimRequest.get("http://someapiurl.com").run(this,
-          new SlimRequestCallback() {
-              @Override
-              public void onSuccess(SlimResult result) {
-                  //get session from headers
-                  Object sessionValue = result.getHeaders().get("sessionKey");
-                  SlimRequest.saveSession(context, "sessionKey", sessionValue);
+        @Override
+        public void onFail(SlimResult result) {
+            //do something with error
+        }
+});
+```
+Session handling
+```
+SlimRequest.get("http://someapiurl.com").run(this,
+    new SlimRequestCallback() {
+        @Override
+        public void onSuccess(SlimResult result) {
+            //get session from headers
+            Object sessionValue = result.getHeaders().get("sessionKey");
+            SlimRequest.saveSession(context, "sessionKey", sessionValue);
 
-              }
+        }
 
-              @Override
-              public void onFail(SlimResult result) {
-                  //do something with error
-              }
-          });
-          
-  //next time if you need the session just add addSession(context)
+        @Override
+        public void onFail(SlimResult result) {
+            //do something with error
+        }
+    });
 
-  SlimRequest.post("http://someapiurl.com").addSession(this).run(this,
-          new SlimRequestCallback() {
-              @Override
-              public void onSuccess(SlimResult result) {
-                  //do something with result
-              }
+//next time if you need the session just add addSession(context)
 
-              @Override
-              public void onFail(SlimResult result) {
-                  //do something with error
-              }
-          });
-  ```
+SlimRequest.post("http://someapiurl.com").addSession(this).run(this,
+    new SlimRequestCallback() {
+        @Override
+        public void onSuccess(SlimResult result) {
+            //do something with result
+        }
+
+        @Override
+        public void onFail(SlimResult result) {
+            //do something with error
+        }
+    });
+```
   
-  ### Stack
-  ...
-  
-  ### Chain
-  ...
-  
-  ## Lisence
-  [wtfpl](http://www.wtfpl.net/)
+### Stack
+...
+
+### Chain
+...
+
+## Lisence
+
+[wtfpl](http://www.wtfpl.net/)
