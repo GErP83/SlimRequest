@@ -198,6 +198,8 @@ SlimRequest is tiny library for android network handling. Not use any 3rd party 
                   //do something with error
               }
           });
+          
+  //next time if you need the session just add addSession(context)
 
   SlimRequest.post("http://someapiurl.com").addSession(this).run(this,
           new SlimRequestCallback() {
@@ -219,6 +221,6 @@ SlimRequest is tiny library for android network handling. Not use any 3rd party 
   ### Chain
   ...
   
-  ## Lisence: WTFPL
-  
+  ## Lisence
+  WTFPL
   
