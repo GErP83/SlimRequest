@@ -12,13 +12,13 @@ SlimRequest is tiny library for android network handling. Not use any 3rd party 
 - can add a JSONObject for the request body
 - can set username/password with Authenticator
 - can say every https is trusted, can be risky ;)
-- can load a SSL cert from assets for https calls
+- can load a SSL cert from assets for HTTPS calls
 - can set return type, types: STRING, JSON_OBJECT, JSON_ARRAY, BYTES, FILE
 - can set connection timeout for the request
 - can set read timeout for the request
 - can set chunk size, for upload/download
 - can add a file to upload with multipart entity, has progress handling as well
-- can add a target file to download to, has progress handling as well
+- can add a download target, has progress handling as well
 - can handle a session: save, add, clear
 - can add multiple request to a stack, the stack runs all request async and returns when all is done, with all response
 - can add multiple request to a chain, can create Transfers between the requests, with a Transfer you can call the next request with the previous response
@@ -57,7 +57,6 @@ SlimRequest is tiny library for android network handling. Not use any 3rd party 
       }
   });
   ```
-
   POST
   ```
   SlimRequest.post("http://someapiurl.com").addParam("someParam", "someValue").run(this, new SlimRequestCallback() {
@@ -86,7 +85,6 @@ SlimRequest is tiny library for android network handling. Not use any 3rd party 
       }
   });
   ```
-  
   PATCH
   ```
   SlimRequest.patch("http://someapiurl.com").addParam("someParam", "someValue").run(this, new SlimRequestCallback() {
@@ -101,7 +99,6 @@ SlimRequest is tiny library for android network handling. Not use any 3rd party 
       }
   });
   ```
-  
   DELETE
   ```
   SlimRequest.delete("http://someapiurl.com").run(this, new SlimRequestCallback() {
@@ -115,6 +112,50 @@ SlimRequest is tiny library for android network handling. Not use any 3rd party 
           //do something with error
       }
   });
+  ```
+  Download and progress
+  ```
+  SlimRequest.get("http://someapiurl.com").downloadToFile(new File("file to path")).run(this,
+      new SlimProgressCallback() {
+          @Override
+          public void onProgress(int chuckBytes, int totalBytes) {
+              //do something with progress
+          }
+      },
+      new SlimRequestCallback() {
+          @Override
+          public void onSuccess(SlimResult result) {
+              //do something with result
+          }
+
+          @Override
+          public void onFail(SlimResult result) {
+              //do something with error
+          }
+      }
+  );
+  ```
+  Upload and progress
+  ```
+  SlimRequest.post("http://someapiurl.com").setUploadFile(new SlimFile("name", new File("file to path"))).run(this,
+      new SlimProgressCallback() {
+          @Override
+          public void onProgress(int chuckBytes, int totalBytes) {
+              //do something with progress
+          }
+      },
+      new SlimRequestCallback() {
+          @Override
+          public void onSuccess(SlimResult result) {
+              //do something with result
+          }
+
+          @Override
+          public void onFail(SlimResult result) {
+              //do something with error
+          }
+      }
+  );
   ```
   
   ### Simple
