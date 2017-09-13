@@ -216,7 +216,7 @@ SlimRequest.post("http://someapiurl.com").addSession(this).run(this,
 ```
   
 ### Stack
-With SlimStack you can add multiple request to a stack, the stack runs all request async and returns when all is done, with all response.
+With SlimStack you can add multiple request to a stack, SlimStack runs all request async and returns when all is done, with all response.
 ```
 SlimStack
     .create()
@@ -233,11 +233,11 @@ SlimStack
 You can add null values to a SlimStack, those will skipped this way, so you can handle different stacks with same callback.
 
 ### Chain
-With SlimChain you add multiple request to a chain, can create Transfers between the requests, with a Transfer you can call the next request with the previous response. 
+With SlimChain you add multiple request to a chain, can create a SlimTransfer between the requests, with a SlimTransfer you can call the next request with the previous response. 
 Rules:
-- if you add a transfer to the chain, always add a request after it
-- do not add a transfer last
-- you can add multiple request after each other
+- if you add a SlimTransfer to the SlimChain, always add a SlimRequest after it
+- do not add a SlimTransfer last to the SlimChain
+- you can add multiple SlimRequest after each other
 
 ```
 class TestSlimTransfer implements SlimTransfer{       
@@ -245,11 +245,13 @@ class TestSlimTransfer implements SlimTransfer{
 
     @Override
     public void gather(SlimResult result) {
+        //gather needed data from result
         gatheredValue = result.getStringData();
     }
 
     @Override
     public void pass(SlimRequest slimRequest) {
+        //pass the data to the next request and call it
         slimRequest.addParam("paramName", gatheredValue);
     } 
 }
@@ -262,7 +264,7 @@ SlimChain
     .run(this, new SlimChainCallback() {
         @Override
         public void onResult(ArrayList<SlimResult> results) {
-            //do something with result
+            //do something with results
         }
     }
 );
