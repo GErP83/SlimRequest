@@ -214,9 +214,14 @@ SlimRequest.post("http://someapiurl.com").addSession(this).run(this,
         }
     });
 ```
+
+Cancel
+```
+//you can simple cancel a request by cancel()
+```
   
 ### SlimStack
-With SlimStack you can add multiple request to a stack, SlimStack runs all request async and returns when all is done, with all response.
+With SlimStack you can add multiple request to a stack, SlimStack runs all request async and returns when all is done, with all response. Also you can cancel a SlimStack by call cancelAll().
 ```
 SlimStack
     .create()
@@ -233,7 +238,7 @@ SlimStack
 You can add null values to a SlimStack, those will skipped this way, so you can handle different stacks with same callback.
 
 ### SlimChain
-With SlimChain you add multiple request to a chain, can create a SlimTransfer between the requests, with a SlimTransfer you can call the next request with the previous response. 
+With SlimChain you add multiple request to a chain, can create a SlimTransfer between the requests, with a SlimTransfer you can call the next request with the previous response. Also you can cancel a SlimChain by call cancelAll().
 Rules:
 - if you add a SlimTransfer to the SlimChain, always add a SlimRequest after it
 - do not add a SlimTransfer last to the SlimChain
