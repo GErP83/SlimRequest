@@ -29,7 +29,7 @@ SlimRequest is tiny library for android network handling. Not use any 3rd party 
   - error type
   - error msg
   - all response headers, if needed
-  - run time im milliseconds
+  - run time in milliseconds
   - bytes uploaded
   - bytes downloaded
   - skipped (will explain with stacks)
@@ -73,10 +73,49 @@ SlimRequest is tiny library for android network handling. Not use any 3rd party 
   });
   ```
   PUT
+  ```
+  SlimRequest.put("http://someapiurl.com").addParam("someParam", "someValue").run(this, new SlimRequestCallback() {
+      @Override
+      public void onSuccess(SlimResult result) {
+          //do something with result
+      }
+
+      @Override
+      public void onFail(SlimResult result) {
+          //do something with error
+      }
+  });
+  ```
   
   PATCH
+  ```
+  SlimRequest.patch("http://someapiurl.com").addParam("someParam", "someValue").run(this, new SlimRequestCallback() {
+      @Override
+      public void onSuccess(SlimResult result) {
+          //do something with result
+      }
+
+      @Override
+      public void onFail(SlimResult result) {
+          //do something with error
+      }
+  });
+  ```
   
   DELETE
+  ```
+  SlimRequest.delete("http://someapiurl.com").run(this, new SlimRequestCallback() {
+      @Override
+      public void onSuccess(SlimResult result) {
+          //do something with result
+      }
+
+      @Override
+      public void onFail(SlimResult result) {
+          //do something with error
+      }
+  });
+  ```
   
   ### Simple
   ...
