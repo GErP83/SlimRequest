@@ -41,8 +41,11 @@ Android api 2.3+ and permissions:
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 ```
-MavenCentral() on the way.
-  
+Add to dependencies:
+```
+compile 'com.github.gerp83:SlimRequest:1.00'
+```
+
 ## Examples
 Get request
 ```
