@@ -5,7 +5,7 @@
 
     <groupId>com.github.gerp83</groupId>
     <artifactId>SlimRequest</artifactId>
-    <version>1.00</version>
+    <version>1.01</version>
     <name>SlimRequest</name>
     <packaging>apklib</packaging>
 
