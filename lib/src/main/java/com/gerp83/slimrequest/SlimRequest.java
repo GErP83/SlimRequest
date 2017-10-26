@@ -125,7 +125,7 @@ public class SlimRequest {
     /**
      * push http param
      *
-     * @param key   http param key
+     * @param key http param key
      * @param value http param value
      */
     public SlimRequest addParam(String key, String value) {
@@ -138,7 +138,7 @@ public class SlimRequest {
     /**
      * push http header
      *
-     * @param key   http header key
+     * @param key http header key
      * @param value http header value
      */
     public SlimRequest addHeader(String key, String value) {
@@ -278,8 +278,8 @@ public class SlimRequest {
     /**
      * save a Session
      *
-     * @param context      mandatory param
-     * @param sessionKey   key for session
+     * @param context mandatory param
+     * @param sessionKey key for session
      * @param sessionValue value for session
      */
     public static void saveSession(Context context, String sessionKey, String sessionValue) {
@@ -319,7 +319,7 @@ public class SlimRequest {
     /**
      * start SlimRequest
      *
-     * @param context         mandatory param
+     * @param context mandatory param
      * @param requestCallback SlimRequestCallback param
      */
     public SlimRequest run(Context context, SlimRequestCallback requestCallback) {
@@ -329,7 +329,7 @@ public class SlimRequest {
     /**
      * start SlimRequest
      *
-     * @param context         mandatory param
+     * @param context mandatory param
      * @param progressCallback SlimProgressCallback param
      * @param requestCallback SlimRequestCallback param
      */

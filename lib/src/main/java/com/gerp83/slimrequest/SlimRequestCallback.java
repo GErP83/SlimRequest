@@ -4,7 +4,7 @@ package com.gerp83.slimrequest;
 import com.gerp83.slimrequest.model.SlimResult;
 
 /**
- * callBack for request
+ * callBack for a request
  */
 public interface SlimRequestCallback {
 

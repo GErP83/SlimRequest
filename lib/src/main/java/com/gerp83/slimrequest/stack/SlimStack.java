@@ -11,7 +11,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 /**
- * request stack, loads request one after another or async
+ * request stack, loads all request in the stack async
  */
 public class SlimStack {
 

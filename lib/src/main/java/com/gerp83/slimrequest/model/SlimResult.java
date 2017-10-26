@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * http request success result class
+ * http request result class
  */
 public class SlimResult {
 

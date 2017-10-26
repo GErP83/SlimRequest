@@ -5,7 +5,7 @@ import com.gerp83.slimrequest.model.SlimResult;
 import java.util.ArrayList;
 
 /**
- * callBack for SlimStack
+ * callBack for SlimChain
  */
 public interface SlimChainCallback {
 
