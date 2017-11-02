@@ -61,14 +61,20 @@ public class SlimStack {
         asyncNumMax = 0;
         asyncNum = 0;
 
+        //need to count not null requests first
         for(int i = 0; i < requests.size(); i++) {
             if (requests.get(i) != null) {
                 asyncNumMax ++;
-                requests.get(i).setStackPosition(i).run(context, requestCallback);
-
+                requests.get(i).setStackPosition(i);
             } else {
                 results.add(new SlimResult().setStackPosition(i).setSkipped());
 
+            }
+        }
+        //launch all not null requests at once
+        for(SlimRequest slimRequest : requests) {
+            if (slimRequest != null) {
+                slimRequest.run(context, requestCallback);
             }
         }
 
@@ -92,8 +98,8 @@ public class SlimStack {
             return;
         }
         results.add(result);
-
         asyncNum ++;
+
         if(asyncNum == asyncNumMax) {
             if (!stopped && results.size() > 0) {
                 Collections.sort(results, new Comparator<SlimResult>() {

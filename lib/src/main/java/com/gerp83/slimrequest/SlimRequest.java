@@ -1,5 +1,6 @@
 package com.gerp83.slimrequest;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
@@ -339,12 +340,7 @@ public class SlimRequest {
             if(progressCallback != null) {
                 worker.setSlimProgressCallback(progressCallback);
             }
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                worker.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, requestBuilder);
-            } else {
-                worker.execute(requestBuilder);
-            }
-
+            worker.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, requestBuilder);
         } else {
             requestCallback.onFail(new SlimResult().setErrorType(SlimErrorType.NETWORK));
         }
@@ -360,9 +356,13 @@ public class SlimRequest {
         }
     }
 
+    @SuppressLint("MissingPermission")
     private boolean hasNetworkConnection(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        NetworkInfo netInfo = null;
+        if (cm != null) {
+            netInfo = cm.getActiveNetworkInfo();
+        }
         return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 
