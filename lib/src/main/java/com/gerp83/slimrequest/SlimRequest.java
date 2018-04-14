@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.preference.PreferenceManager;
 
 import com.gerp83.slimrequest.model.SlimErrorType;
@@ -32,21 +31,27 @@ public class SlimRequest {
     private SlimRequest(String url, String method) {
 
         requestBuilder = new SlimBuilder();
-        if(method.equals("GET")) {
-            requestBuilder.get(url);
+        switch (method) {
+            case "GET":
+                requestBuilder.get(url);
 
-        } else if(method.equals("POST")) {
-            requestBuilder.post(url);
+                break;
+            case "POST":
+                requestBuilder.post(url);
 
-        } else if(method.equals("PUT")) {
-            requestBuilder.put(url);
+                break;
+            case "PUT":
+                requestBuilder.put(url);
 
-        } else if(method.equals("PATCH")) {
-            requestBuilder.patch(url);
+                break;
+            case "PATCH":
+                requestBuilder.patch(url);
 
-        } else if(method.equals("DELETE")) {
-            requestBuilder.delete(url);
+                break;
+            case "DELETE":
+                requestBuilder.delete(url);
 
+                break;
         }
 
     }
@@ -318,24 +323,54 @@ public class SlimRequest {
     }
 
     /**
-     * start SlimRequest
+     * set base url for REST api
      *
      * @param context mandatory param
-     * @param requestCallback SlimRequestCallback param
+     * @param baseUrl url
      */
-    public SlimRequest run(Context context, SlimRequestCallback requestCallback) {
-        return run(context, null, requestCallback);
+    public static void setBaseUrl(Context context, String baseUrl) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("baseURL", baseUrl);
+        editor.apply();
+    }
+
+    /**
+     * clear base url for REST api
+     *
+     * @param context mandatory param
+     */
+    public static void clearBaseUrl(Context context) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.remove("baseURL");
+        editor.apply();
     }
 
     /**
      * start SlimRequest
      *
      * @param context mandatory param
-     * @param progressCallback SlimProgressCallback param
      * @param requestCallback SlimRequestCallback param
      */
-    public SlimRequest run(Context context, SlimProgressCallback progressCallback, SlimRequestCallback requestCallback) {
+    public SlimRequest run(Context context, SlimRequestCallback requestCallback) {
+        return run(context, requestCallback, null);
+    }
+
+    /**
+     * start SlimRequest
+     *
+     * @param context mandatory param
+     * @param requestCallback SlimRequestCallback param
+     * @param progressCallback SlimProgressCallback param
+     */
+    public SlimRequest run(Context context, SlimRequestCallback requestCallback, SlimProgressCallback progressCallback) {
         if (context == null || hasNetworkConnection(context)) {
+
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+            String baseUrl = sharedPreferences.getString("baseURL", null);
+            requestBuilder.setBaseUrl(baseUrl);
+
             worker = new SlimWorker(requestCallback);
             if(progressCallback != null) {
                 worker.setSlimProgressCallback(progressCallback);

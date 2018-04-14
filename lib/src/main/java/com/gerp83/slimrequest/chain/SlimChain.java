@@ -107,7 +107,7 @@ public class SlimChain {
             }
 
         } else {
-            if (!stopped && results.size() > 0) {
+            if (results.size() > 0) {
                 slimChainCallback.onResult(results);
             }
 

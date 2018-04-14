@@ -25,7 +25,6 @@ import java.net.HttpURLConnection;
 import java.net.PasswordAuthentication;
 import java.net.URL;
 import java.security.SecureRandom;
-import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.HashMap;
 import java.util.Map.Entry;
@@ -49,6 +48,7 @@ class SlimBuilder {
     private int chunkSize = SlimConstants.DEFAULT_CHUNK_SIZE;
 
     private String url;
+    private String baseUrl;
     private String requestMethod;
     private HashMap<String, String> params;
     private HashMap<String, String> headers;
@@ -61,13 +61,13 @@ class SlimBuilder {
     private int stackPosition = -1;
     private long startTime = -1;
     private int totalBytes = -1;
-    private int bytesUploded = -1;
+    private int bytesUploaded = -1;
     private int bytesDownloaded = -1;
 
     private SlimBuilderProgressListener slimBuilderProgressListener;
 
     public interface SlimBuilderProgressListener {
-        void onUpdate(int chunckBytes, int totalBytes);
+        void onUpdate(int chunkBytes, int totalBytes);
     }
 
     void get(String url) {
@@ -156,9 +156,9 @@ class SlimBuilder {
             SSLContext context = SSLContext.getInstance("TLS");
             context.init(null, new X509TrustManager[]{new X509TrustManager() {
                 @SuppressLint("TrustAllX509TrustManager")
-                public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {}
+                public void checkClientTrusted(X509Certificate[] chain, String authType) {}
                 @SuppressLint("TrustAllX509TrustManager")
-                public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {}
+                public void checkServerTrusted(X509Certificate[] chain, String authType) {}
                 public X509Certificate[] getAcceptedIssuers() {
                     return new X509Certificate[0];
                 }
@@ -190,9 +190,16 @@ class SlimBuilder {
         this.chunkSize = chunkSize;
     }
 
+    void setBaseUrl(String baseUrl) {
+        this.baseUrl = baseUrl;
+    }
+
     SlimResult request() {
         try {
             startTime = System.currentTimeMillis();
+            if(baseUrl != null) {
+                url = baseUrl + url;
+            }
             Uri.Builder builder = Uri.parse(url).buildUpon();
             if (params != null) {
                 for (Entry<String, String> e : params.entrySet()) {
@@ -238,7 +245,7 @@ class SlimBuilder {
             }
 
             if (postData != null || postJson != null) {
-                char[] bytes = null;
+                char[] bytes;
                 if (postData != null) {
                     bytes = postData.toCharArray();
 
@@ -248,7 +255,7 @@ class SlimBuilder {
                 }
                 urlConnection.setRequestProperty("Content-Length", String.valueOf(bytes.length));
 
-                OutputStreamWriter post = null;
+                OutputStreamWriter post;
                 post = new OutputStreamWriter(urlConnection.getOutputStream());
                 post.write(bytes);
                 post.flush();
@@ -260,7 +267,7 @@ class SlimBuilder {
             return new SlimResult()
                     .setRunTime(System.currentTimeMillis() - startTime)
                     .setBytesDownloaded(bytesDownloaded)
-                    .setBytesUploded(bytesUploded)
+                    .setBytesUploaded(bytesUploaded)
                     .setStackPosition(stackPosition)
                     .setErrorType(SlimErrorType.REQUEST)
                     .setError(e.toString());
@@ -276,9 +283,12 @@ class SlimBuilder {
             multipartEntity.setParams(params);
             multipartEntity.setRequestFile(uploadFile);
 
+            if(baseUrl != null) {
+                url = baseUrl + url;
+            }
             URL u = new URL(url);
 
-            HttpURLConnection urlConnection = null;
+            HttpURLConnection urlConnection;
             if (sslContext == null) {
                 urlConnection = (HttpURLConnection) u.openConnection();
 
@@ -303,24 +313,23 @@ class SlimBuilder {
             multipartEntity.writeTo(cacheOutputStream);
             cacheOutputStream.close();
             byte[] payload = cacheOutputStream.toByteArray();
-            cacheOutputStream = null;
 
             urlConnection.setRequestProperty("Content-length", String.valueOf(payload.length));
 
             totalBytes = payload.length;
-            bytesUploded = 0;
+            bytesUploaded = 0;
 
             System.out.println("total: " + totalBytes);
-            while (bytesUploded < totalBytes) {
-                int nextChunkSize = totalBytes - bytesUploded;
+            while (bytesUploaded < totalBytes) {
+                int nextChunkSize = totalBytes - bytesUploaded;
                 if (nextChunkSize > chunkSize) {
                     nextChunkSize = chunkSize;
                 }
                 System.out.println(nextChunkSize + ", " + chunkSize);
-                urlConnection.getOutputStream().write(payload, bytesUploded, nextChunkSize);
-                bytesUploded += nextChunkSize;
+                urlConnection.getOutputStream().write(payload, bytesUploaded, nextChunkSize);
+                bytesUploaded += nextChunkSize;
                 if (slimBuilderProgressListener != null) {
-                    slimBuilderProgressListener.onUpdate(bytesUploded, totalBytes);
+                    slimBuilderProgressListener.onUpdate(bytesUploaded, totalBytes);
                 }
 
             }
@@ -331,7 +340,7 @@ class SlimBuilder {
             return new SlimResult()
                     .setRunTime(System.currentTimeMillis() - startTime)
                     .setBytesDownloaded(bytesDownloaded)
-                    .setBytesUploded(bytesUploded)
+                    .setBytesUploaded(bytesUploaded)
                     .setStackPosition(stackPosition)
                     .setErrorType(SlimErrorType.REQUEST_UPLOAD)
                     .setError(e.toString());
@@ -355,7 +364,7 @@ class SlimBuilder {
             //hack: sometimes downloading pictures is buggy
             try {
                 inputStream.reset();
-            } catch (Throwable e) {
+            } catch (Throwable ignored) {
             }
 
             SlimResult slimResult = new SlimResult().setResponseCode(responseCode).setHeaders(urlConnection.getHeaderFields());
@@ -401,13 +410,13 @@ class SlimBuilder {
             return slimResult
                     .setRunTime(System.currentTimeMillis() - startTime)
                     .setBytesDownloaded(bytesDownloaded)
-                    .setBytesUploded(bytesUploded);
+                    .setBytesUploaded(bytesUploaded);
 
         } catch (Throwable e) {
             return new SlimResult()
                     .setRunTime(System.currentTimeMillis() - startTime)
                     .setBytesDownloaded(bytesDownloaded)
-                    .setBytesUploded(bytesUploded)
+                    .setBytesUploaded(bytesUploaded)
                     .setStackPosition(stackPosition)
                     .setErrorType(SlimErrorType.REQUEST)
                     .setError(e.toString());

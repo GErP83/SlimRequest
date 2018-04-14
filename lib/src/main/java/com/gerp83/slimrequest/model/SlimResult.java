@@ -20,7 +20,7 @@ public class SlimResult {
     private int stackPosition = -1;
 
     private long runTime = -1;
-    private int bytesUploded = -1;
+    private int bytesUploaded = -1;
     private int bytesDownloaded = -1;
 
 
@@ -208,15 +208,15 @@ public class SlimResult {
     /**
      * get bytes uploaded
      */
-    public int getBytesUploded() {
-        return bytesUploded;
+    public int getBytesUploaded() {
+        return bytesUploaded;
     }
 
     /**
      * set bytes uploaded
      */
-    public SlimResult setBytesUploded(int bytesUploded) {
-        this.bytesUploded = bytesUploded;
+    public SlimResult setBytesUploaded(int bytesUploaded) {
+        this.bytesUploaded = bytesUploaded;
         return this;
     }
 
@@ -249,7 +249,7 @@ public class SlimResult {
 
         builder.append("ResponseCode: ").append(responseCode).append("\n");
         builder.append("Runtime: ").append(runTime).append("\n");
-        builder.append("Bytes Uploded: ").append(bytesUploded).append("\n");
+        builder.append("Bytes Uploaded: ").append(bytesUploaded).append("\n");
         builder.append("Bytes Downloaded: ").append(bytesDownloaded).append("\n");
 
         if(errorType != -1) {

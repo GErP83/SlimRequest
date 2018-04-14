@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Multipart Entitiy for http post file uploads
+ * Multipart Entity for http post file uploads
  */
 public class MultipartEntity {
 
@@ -55,7 +55,7 @@ public class MultipartEntity {
 
         FileInputStream inputStream = new FileInputStream(requestFile.file);
         byte[] buffer = new byte[4096];
-        int bytesRead = -1;
+        int bytesRead;
         while ((bytesRead = inputStream.read(buffer)) != -1) {
             outputStream.write(buffer, 0, bytesRead);
         }

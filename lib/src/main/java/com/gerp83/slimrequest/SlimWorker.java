@@ -11,7 +11,6 @@ class SlimWorker extends AsyncTask<SlimBuilder, Integer, Void> {
 
     private SlimProgressCallback slimProgressCallback;
     private SlimRequestCallback requestCallback;
-
     private SlimResult requestResult;
 
     SlimWorker(SlimRequestCallback requestCallback) {
@@ -23,8 +22,8 @@ class SlimWorker extends AsyncTask<SlimBuilder, Integer, Void> {
         if(slimProgressCallback != null) {
             params[0].setSlimBuilderProgressListener(new SlimBuilder.SlimBuilderProgressListener() {
                 @Override
-                public void onUpdate(int chunckBytes, int totalBytes) {
-                    publishProgress(chunckBytes, totalBytes);
+                public void onUpdate(int chunkBytes, int totalBytes) {
+                    publishProgress(chunkBytes, totalBytes);
                 }
             });
         }
