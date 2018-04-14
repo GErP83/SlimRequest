@@ -6,6 +6,7 @@ SlimRequest is tiny library for android network handling. Not use any 3rd party 
 - can call basic HTTP/HTTPS request: GET, POST, PUT, PATCH, DELETE
 - can check internet availability, returns NETWORK error, you don't need to check it yourself
 - you don't have to worry about main thread using
+- can set a base url for REST api
 - can set content type like "application/json; charset=utf-8"
 - can add params for the requests with key/value pair, like addParam("name", "Josh")
 - can add header for the requests with key/value pair, same as param
@@ -43,7 +44,7 @@ Android api 4.3+ and permissions:
 ```
 Add to dependencies:
 ```
-compile 'com.github.gerp83:SlimRequest:1.02'
+compile 'com.github.gerp83:SlimRequest:1.03'
 ```
 
 ## Examples
@@ -217,6 +218,17 @@ SlimRequest.post("http://someapiurl.com").addSession(this).run(this,
             //do something with error
         }
     });
+```
+Base url for REST api, just set somewhere into your code like Application.
+```
+public class TestApplication extends Application{
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        SlimRequest.setBaseUrl(this, "https://api.someurl.com/");
+    }
+}
+});
 ```
 
 Cancel
