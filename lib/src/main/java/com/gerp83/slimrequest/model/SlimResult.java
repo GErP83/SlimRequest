@@ -243,6 +243,7 @@ public class SlimResult {
         return this;
     }
 
+    @SuppressWarnings("NullableProblems")
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();

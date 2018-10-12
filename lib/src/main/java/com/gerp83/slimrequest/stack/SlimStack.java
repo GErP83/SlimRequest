@@ -103,6 +103,7 @@ public class SlimStack {
         if(asyncNum == asyncNumMax) {
             if (!stopped && results.size() > 0) {
                 Collections.sort(results, new Comparator<SlimResult>() {
+                    @SuppressWarnings("ComparatorMethodParameterNotUsed")
                     @Override
                     public int compare(SlimResult r1, SlimResult r2) {
                         return r1.getStackPosition() > r2.getStackPosition() ? 1 : -1;
