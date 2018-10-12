@@ -44,7 +44,7 @@ Android api 4.3+ and permissions:
 ```
 Add to dependencies:
 ```
-compile 'com.github.gerp83:SlimRequest:1.03'
+compile 'com.github.gerp83:SlimRequest:1.04'
 ```
 
 ## Examples
