@@ -1,3 +1,6 @@
+I do not support this anymore, it is only for showcase. I recommend to use [Retrofit](https://github.com/square/retrofit) or [Ion](https://github.com/koush/ion).
+
+
 # SlimRequest
 
 SlimRequest is tiny library for android network handling. Not use any 3rd party library, it has zero dependencies, has no other layers, not working of top of some other library. Only the top of HttpURLConnection. It has a 28 kB size and has 160 methods only.
